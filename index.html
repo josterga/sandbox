@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+      var slider = document.getElementById("myRange");
+      var output = document.getElementById("demo");
+
+      var r = 0;
+      var g = 0;
+      var b = 0;
+      var a = 1;
+
+      var change = function (){
+        if (slider.value <= 255){ // red up
+          r = slider.value;
+          g = 0;
+          b = 0;
+        }
+        if ((slider.value > 255) && (slider.value <= 510)){ // green up
+          r = 255;
+          g = slider.value - 255;
+          b = 0;
+        }
+        if ((slider.value > 510) && (slider.value <= 765)){ // red down
+          r = 255 - (slider.value - 510 );
+          g = 255;
+          b = 0;
+        }
+        if ((slider.value > 765) && (slider.value <= 1020)){ // blue up
+          r = 0;
+          g = 255;
+          b = (slider.value - 765);
+        }
+        if ((slider.value > 1020) && (slider.value <= 1275)){ // green down
+          r = 0;
+          g = 255 - (slider.value - 1020 );
+          b = 255;
+        }
+        if ((slider.value > 1275) && (slider.value <= 1530)){ // red up
+          r = (slider.value - 1275);
+          g = 0;
+          b = 255;
+        }
+        if ((slider.value > 1530) && (slider.value <= 1785)){ // blue down
+          r = 255;
+          g = 0;
+          b = 255 - (slider.value - 1530 );
+        }
+        if (slider.value == 1785){
+          r = 255;
+          g = 255;
+          b = 255;
+        }
+      }
+
+      slider.oninput = function() {
+        color = (slider.value);
+        change();
+        $("body").css("background-color", "rgba("+ r + "," + g + "," + b + "," + a + ")");
+        $(".center").css("background-color", "rgba("+ (255-r) + "," + (255-g) + "," + (255-b) + "," + a + ")");
+        $(".red").css("background-color", "rgba("+ r + "," + (255-g) + "," + (255-b) + "," + a + ")");
+        $(".green").css("background-color", "rgba("+ (255-r) + "," + g + "," + (255-b) + "," + a + ")");
+        $(".blue").css("background-color", "rgba("+ (255-r) + "," + (255-g) + "," + b + "," + a + ")");
+      }
+    });
+  </script>
+  </head>
+  <body>
+    <div class="slidecontainer">
+      <input type="range" min="0" max="1785" value="0" class="slider" id="myRange">
+      <div class="center">
+        <div class="red">
+          <br>
+        </div>
+        <div class="green">
+          <br>
+        </div>
+        <div class="blue">
+          <br>
+        </div>
+        <br>
+      </div>
+    </div>
+  </body>
+</html>
